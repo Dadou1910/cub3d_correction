@@ -178,8 +178,9 @@ void		load_texture(t_mlx *mlx, t_texture *texture, t_game *game,
 				char *path);
 int			check_duplicate_or_missing(t_game *game, t_mlx *mlx);
 void		parse_file(const char *filename, t_game *game, t_mlx *mlx);
-void		parse_config(char *line, char *li, t_game *game, char **map);
+void		parse_config(char *line, char *li, t_game *game);
 void		validate_map(t_game *game);
+void		help_dimension(t_game *game);
 void		clean_exit(t_game *game, t_mlx *mlx);
 void		cleanup_and_exit(t_game *game, t_mlx *mlx, const char *error_msg);
 void		validate_config_map(char *line, t_game *game, t_mlx *mlx);

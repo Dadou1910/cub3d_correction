@@ -41,26 +41,22 @@ int	help_walls_count(t_game *game, int x, int y, int *count)
 
 int	is_surrounded_by_walls(t_game *game)
 {
-	int	y;
-	int	x;
-	int	count;
+    int y = 0;
+    int x = 0;
 
-	y = 0;
-	count = 0;
-	while (y < game->map_height)
-	{
-		x = 0;
-		while (x < game->map_width)
-		{
-			if (!help_walls(game, x, y))
-				return (0);
-			if (!help_walls_count(game, x, y, &count))
-				return (0);
-			x++;
-		}
-		y++;
+    while (x < game->map_width)
+    {
+        if (game->map[0][x] != '1' || game->map[game->map_height - 1][x] != '1')
+            return(1);
+        x++;
+    }
+    while (y < game->map_height)
+    {
+        if (game->map[y][0] != '1' || game->map[y][game->map_width - 1] != '1')
+            return(1);
+        y++;
 	}
-	return (1);
+	return (0);
 }
 
 void	helper_val_map(t_game *game, int *player_count, int x, int y)
@@ -77,13 +73,21 @@ void	check_val_map(t_game *game, int player_count)
 	if (player_count != 1)
 	{
 		if (player_count == 0)
-			cleanup_and_exit(game, game->mlx, "No player position");
+		{
+			printf("%s", "Error\nNo player position\n");
+			clean_exit(game, game->mlx);
+		}
 		else
-			cleanup_and_exit(game, game->mlx, "Multiple player positions");
+		{
+			printf("%s", "Error\nMultiple player positions\n");
+			clean_exit(game, game->mlx);
+		}
 	}
-	if (!is_surrounded_by_walls(game))
-		cleanup_and_exit(game, game->mlx,
-			"Map is not properly surrounded by walls");
+	if (is_surrounded_by_walls(game))
+	{
+		printf("%s", "Error\nMap is not properly surrounded by walls\n");
+		clean_exit(game, game->mlx);
+	}
 }
 
 void	validate_map(t_game *game)
@@ -95,6 +99,7 @@ void	validate_map(t_game *game)
 	x = 0;
 	y = 0;
 	player_count = 0;
+	help_dimension(game);
 	while (y < game->map_height)
 	{
 		x = 0;

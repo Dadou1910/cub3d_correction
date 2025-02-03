@@ -12,48 +12,42 @@
 
 #include "../includes/cub3D.h"
 
-void	help_dimension(t_game *game, int *row_len, int *y)
+void	help_dimension(t_game *game)
 {
-	char	*padded_row;
-
-	if (*row_len < game->map_width)
-	{
-		padded_row = malloc(game->map_width + 1);
-		if (!padded_row)
-			check_malloc(game, game->mlx);
-		ft_memcpy(padded_row, game->map[*y], *row_len);
-		ft_memset(padded_row + *row_len, ' ', game->map_width - *row_len);
-		padded_row[game->map_width] = '\0';
-		free(game->map[*y]);
-		game->map[*y] = padded_row;
+    int y;
+	
+	y = 0;
+    while (y < game->map_height)
+    {
+        int row_len = strlen(game->map[y]);
+        if (row_len < game->map_width)
+        {
+            char *padded_row = malloc(game->map_width + 1);
+            if (!padded_row)
+                cleanup_and_exit(game, game->mlx, "Malloc failed");
+            ft_memcpy(padded_row, game->map[y], row_len);
+            ft_memset(padded_row + row_len, ' ', game->map_width - row_len);
+            padded_row[game->map_width] = '\0';
+            free(game->map[y]);
+            game->map[y] = padded_row;
+        }
+        y++;
 	}
 }
 
 void	calculate_map_dimensions(t_game *game)
 {
-	int	y;
-	int	row_len;
-	int	max_width;
-	int	row_width;
+    int y = 0;
+    int max_width = 0;
+	int row_width = 0;
 
-	if (!game->map)
-		cleanup_and_exit(game, game->mlx, "Invalid file\n");
-	y = 0;
-	max_width = 0;
-	while (game->map[y])
-	{
-		row_width = ft_strlen(game->map[y]);
-		if (row_width > max_width)
-			max_width = row_width;
-		y++;
-	}
-	game->map_height = y;
-	game->map_width = max_width;
-	y = 0;
-	while (y < game->map_height)
-	{
-		row_len = ft_strlen(game->map[y]);
-		help_dimension(game, &row_len, &y);
-		y++;
-	}
+    while (game->map[y])
+    {
+        row_width = (int)ft_strlen(game->map[y]);
+        if (row_width > max_width)
+            max_width = row_width;
+        y++;
+    }
+    game->map_height = y;
+    game->map_width = max_width;
 }

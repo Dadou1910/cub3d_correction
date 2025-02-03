@@ -55,7 +55,7 @@ void	cleanup_and_exit(t_game *game, t_mlx *mlx, const char *error_msg)
 	if (error_msg)
 		printf("Error\n%s\n", error_msg);
 	if (game && game->map)
-		free_map(game->map);
+		free(game->map);
 	if (game->buffer)
 		free(game->buffer);
 	if (game)

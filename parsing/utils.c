@@ -64,30 +64,27 @@ int	is_valid_map_char(char c)
 
 int	help_walls(t_game *game, int x, int y)
 {
-	if (game->map[y][x] == '0' || game->map[y][x] == 'N' || game->map[y][x] == 'S' ||
-		game->map[y][x] == 'E' || game->map[y][x] == 'W')
-	{
-		if (y == 0 || x == 0 || y == game->map_height - 1 || x >= (int)strlen(game->map[y]) - 1)
-			return (0);
+    if (game->map[y][x] == '0' || game->map[y][x] == 'N' || game->map[y][x] == 'S' ||
+        game->map[y][x] == 'E' || game->map[y][x] == 'W')
+    {
+        if (y == 0 || x == 0 || y == game->map_height - 1 || x >= (int)strlen(game->map[y]) - 1)
+            return (0);
 
-		if (game->map[y - 1][x] == ' ' || game->map[y - 1][x] == '\0' ||
-			game->map[y + 1][x] == ' ' || game->map[y + 1][x] == '\0' ||
-			game->map[y][x - 1] == ' ' || game->map[y][x - 1] == '\0' ||
-			game->map[y][x + 1] == ' ' || game->map[y][x + 1] == '\0')
-		{
-			if (x < (int)strlen(game->map[y]) - 1) // Only fill if it's not at the end of a line
-			{
-				if (game->map[y - 1][x] == ' ' || game->map[y - 1][x] == '\0')
-					game->map[y - 1][x] = '1';
-				if (game->map[y + 1][x] == ' ' || game->map[y + 1][x] == '\0')
-					game->map[y + 1][x] = '1';
-				if (game->map[y][x - 1] == ' ' || game->map[y][x - 1] == '\0')
-					game->map[y][x - 1] = '1';
-				if (game->map[y][x + 1] == ' ' || game->map[y][x + 1] == '\0')
-					game->map[y][x + 1] = '1';
-			}
-		}
-	}
-	return (1);
+        if (game->map[y - 1][x] == ' ' || game->map[y - 1][x] == '\0' ||
+            game->map[y + 1][x] == ' ' || game->map[y + 1][x] == '\0' ||
+            game->map[y][x - 1] == ' ' || game->map[y][x - 1] == '\0' ||
+            game->map[y][x + 1] == ' ' || game->map[y][x + 1] == '\0')
+        {
+            if (game->map[y - 1][x] == ' ' || game->map[y - 1][x] == '\0')
+                game->map[y - 1][x] = '1';
+            if (game->map[y + 1][x] == ' ' || game->map[y + 1][x] == '\0')
+                game->map[y + 1][x] = '1';
+            if (game->map[y][x - 1] == ' ' || game->map[y][x - 1] == '\0')
+                game->map[y][x - 1] = '1';
+            if (game->map[y][x + 1] == ' ' || game->map[y][x + 1] == '\0')
+                game->map[y][x + 1] = '1';
+        }
+    }
+    return (1);
 }
 

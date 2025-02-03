@@ -34,7 +34,7 @@ void	perform_dda(t_game *game, char **map, int *hit, int *side)
 		if (game->ray.mapx < 0 || game->ray.mapx >= game->map_width
 			|| game->ray.mapy < 0 || game->ray.mapy >= game->map_height
 			|| !map[game->ray.mapy][game->ray.mapx])
-			cleanup_and_exit(game, game->mlx, "Ray out of bound\n");
+			cleanup_and_exit(game, game->mlx, "Ray out of bound");
 		if (game->ray.sidedistx < game->ray.sidedisty)
 			*side = helper_ddax(game);
 		else
@@ -42,7 +42,7 @@ void	perform_dda(t_game *game, char **map, int *hit, int *side)
 		if (game->ray.mapx < 0 || game->ray.mapx >= game->map_width
 			|| game->ray.mapy < 0 || game->ray.mapy >= game->map_height
 			|| !map[game->ray.mapy][game->ray.mapx])
-			cleanup_and_exit(game, game->mlx, "Ray out of bound\n");
+			cleanup_and_exit(game, game->mlx, "Ray out of bound");
 		if (map[game->ray.mapy][game->ray.mapx] == '1')
 			*hit = 1;
 	}

@@ -22,6 +22,8 @@ void	init_mlx_null(t_mlx *mlx)
 	mlx->south_texture.img = NULL;
 	mlx->east_texture.img = NULL;
 	mlx->west_texture.img = NULL;
+	mlx->floor_color = 0;
+	mlx->ceiling_color = 0;
 }
 
 void	init_temp(t_temp temp)

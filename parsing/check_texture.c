@@ -65,29 +65,33 @@ int is_valid_xpm_file(char *filename)
 }
 
 
-void	parse_config(char *line, char *li, t_game *game, char **map)
+void	parse_config(char *line, char *li, t_game *game)
 {
 	char	*trimmed;
 
 	trimmed = trim_whitespace(line);
 	validate_config_map(trimmed, game, game->mlx);
-	if (strncmp(trimmed, "NO ", 3) == 0 && is_valid_xpm_file(trimmed + 3))
+	if (ft_strncmp(trimmed, "NO ", 3) == 0 && is_valid_xpm_file(trimmed + 3)
+		&& !game->mlx->north_texture.img)
 		load_texture(game->mlx, &game->mlx->north_texture, game, trimmed + 3);
-	else if (strncmp(trimmed, "SO ", 3) == 0 && is_valid_xpm_file(trimmed + 3))
+	else if (ft_strncmp(trimmed, "SO ", 3) == 0 && is_valid_xpm_file(trimmed + 3)
+		&& !game->mlx->south_texture.img)
 		load_texture(game->mlx, &game->mlx->south_texture, game, trimmed + 3);
-	else if (strncmp(trimmed, "WE ", 3) == 0 && is_valid_xpm_file(trimmed + 3))
+	else if (ft_strncmp(trimmed, "WE ", 3) == 0 && is_valid_xpm_file(trimmed + 3)
+		&& !game->mlx->west_texture.img)
 		load_texture(game->mlx, &game->mlx->west_texture, game, trimmed + 3);
-	else if (strncmp(trimmed, "EA ", 3) == 0 && is_valid_xpm_file(trimmed + 3))
+	else if (ft_strncmp(trimmed, "EA ", 3) == 0 && is_valid_xpm_file(trimmed + 3)
+		&& !game->mlx->east_texture.img)
 		load_texture(game->mlx, &game->mlx->east_texture, game, trimmed + 3);
-	else if (strncmp(trimmed, "F ", 2) == 0)
+	else if (!ft_strncmp(trimmed, "F ", 2) && !game->mlx->floor_color)
 		game->mlx->floor_color = parse_color(game, trimmed + 2);
-	else if (strncmp(trimmed, "C ", 2) == 0)
+	else if (!ft_strncmp(trimmed, "C ", 2) && !game->mlx->ceiling_color)
 		game->mlx->ceiling_color = parse_color(game, trimmed + 2);
 	else
 	{
 		free(li);
-		free(map);
-		cleanup_and_exit(game, game->mlx, "Invalid map configuration");
+		printf("%s", "Error\nInvalid map configuration\n");
+		clean_exit(game, game->mlx);
 	}
 }
 
