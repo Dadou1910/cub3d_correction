@@ -39,18 +39,6 @@ int	help_walls_count(t_game *game, int x, int y, int *count)
 	return (1);
 }
 
-
-
-int	is_surrounded_by_walls(t_game *game)
-{
-	if (check_row_sides(game->map, game->map_height) ||
-		check_top_bottom(game->map, game->map_height))
-		return (1);
-	return (0);
-}
-
-
-
 void	helper_val_map(t_game *game, int *player_count, int x, int y)
 {
 	(*player_count)++;
@@ -91,7 +79,7 @@ void	validate_map(t_game *game)
 	x = 0;
 	y = 0;
 	player_count = 0;
-	help_dimension(game);
+	help_dimension(game, ' ');
 	while (y < game->map_height)
 	{
 		x = 0;
@@ -107,4 +95,5 @@ void	validate_map(t_game *game)
 		y++;
 	}
 	check_val_map(game, player_count);
+	help_dimension(game, '1');
 }

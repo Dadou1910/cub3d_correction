@@ -40,50 +40,55 @@ int	check_text(char *line)
 		return (1);
 }
 
-int is_valid_cub_file(const char *filename)
+int	is_valid_cub_file(const char *filename)
 {
-    int len;
+	int	len;
 
-    if (!filename)
-        return (0);
-    len = ft_strlen(filename);
-    if (len < 4)
-        return (0);
-    if (ft_strcmp((char *)(filename + len - 4), ".cub") == 0)
-        return (1);
-    return (0);
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	if (ft_strcmp((char *)(filename + len - 4), ".cub") == 0)
+		return (1);
+	return (0);
 }
 
-int	check_row_sides(char **map, int height)
+void	flood_fill2(char **map, int x, int y, t_game *game)
 {
-	int	y;
-	int	row_length;
-
-	y = 0;
-	while (y < height)
+	if (x < 0 || y < 0 || x >= game->map_width || y >= game->map_height)
 	{
-		row_length = ft_strlen(map[y]);
-		if (row_length == 0)
-			return (1);
-		if (map[y][0] != '1' || map[y][row_length - 1] != '1')
-			return (1);
+		game->touches_border = 1;
+		return ;
+	}
+	if (map[y][x] == '1' || map[y][x] == 'X')
+		return ;
+	map[y][x] = 'X';
+	flood_fill2(map, x + 1, y, game);
+	flood_fill2(map, x - 1, y, game);
+	flood_fill2(map, x, y + 1, game);
+	flood_fill2(map, x, y - 1, game);
+}
+
+void	helper_surrounded(t_game *game, int x, int y)
+{
+	game->temp_map = malloc(sizeof(char *) * (game->map_height + 1));
+	if (!game->temp_map)
+	{
+		printf("%s", "Error\nMalloc failed\n");
+		clean_exit(game, game->mlx);
+	}
+	y = 0;
+	while (y < game->map_height)
+	{
+		game->temp_map[y] = strdup(game->map[y]);
+		if (!game->temp_map[y])
+		{
+			free(game->temp_map);
+			printf("%s", "Error\nMalloc failed\n");
+			clean_exit(game, game->mlx);
+		}
 		y++;
 	}
-	return (0);
-}
-
-int	check_top_bottom(char **map, int height)
-{
-	int	x;
-	int	width;
-
-	width = ft_strlen(map[0]);
-	x = 0;
-	while (x < width)
-	{
-		if (map[0][x] != '1' || map[height - 1][x] != '1')
-			return (1);
-		x++;
-	}
-	return (0);
+	game->temp_map[y] = NULL;
 }

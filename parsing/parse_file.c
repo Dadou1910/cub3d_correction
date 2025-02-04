@@ -71,7 +71,8 @@ char	*map_has_started(t_game *game, char *line)
 			cleanup_and_exit(game, game->mlx, "Duplicate or missing texture");
 		}
 	}
-	if (game->map_started && (ft_strchr(line, 'F') != NULL || ft_strchr(line, 'C')!= NULL))
+	if (game->map_started && (ft_strchr(line, 'F') != NULL
+			|| ft_strchr(line, 'C') != NULL))
 	{
 		free(line);
 		printf("%s", "Error\nInvalid character in map\n");
@@ -83,7 +84,6 @@ char	*map_has_started(t_game *game, char *line)
 	check_map_char(line, game);
 	return (line);
 }
-
 
 void	helper_parse_file(t_game *game, char *line, int *y)
 {

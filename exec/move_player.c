@@ -12,9 +12,6 @@
 
 #include "../includes/cub3D.h"
 
-
-#include <math.h>
-
 void	rotate_player(t_game *game, double rotationspeed)
 {
 	double	old_dirx;
@@ -25,7 +22,6 @@ void	rotate_player(t_game *game, double rotationspeed)
 		game->angle += 2 * M_PI;
 	else if (game->angle >= 2 * M_PI)
 		game->angle -= 2 * M_PI;
-	
 	old_dirx = game->dirx;
 	game->dirx = cos(game->angle);
 	game->diry = sin(game->angle);
@@ -38,7 +34,6 @@ void	help_move(t_game *game, double movespeed, double *x, double *y)
 {
 	*x = game->posx + game->dirx * movespeed;
 	*y = game->posy + game->diry * movespeed;
-
 	if (*x > 0 && *x < game->map_width
 		&& *y > 0 && *y < game->map_height
 		&& game->map[(int)*y][(int)*x] == '0')
@@ -70,4 +65,3 @@ void	move_player(t_game *game, double movespeed)
 		}
 	}
 }
-

@@ -16,7 +16,7 @@ DEPS			= Makefile $(INCLUDES_DIR)/cub3D.h
 
 EXEC_SRC		= $(EXEC_DIR)/main.c $(EXEC_DIR)/calculate_dist.c $(EXEC_DIR)/init.c \
 					$(EXEC_DIR)/key_events.c $(EXEC_DIR)/move_player.c $(EXEC_DIR)/dda.c \
-					$(EXEC_DIR)/rendering.c $(EXEC_DIR)/mini_map.c $(EXEC_DIR)/init_2.c \
+					$(EXEC_DIR)/rendering.c $(EXEC_DIR)/init_2.c \
 					$(EXEC_DIR)/get_next_line.c
 PARSING_SRC		= $(PARSING_DIR)/check_map.c $(PARSING_DIR)/check_texture.c \
 					$(PARSING_DIR)/cleanup.c $(PARSING_DIR)/flood_fill.c $(PARSING_DIR)/parse_file.c \

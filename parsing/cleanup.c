@@ -76,3 +76,31 @@ void	clean_exit(t_game *game, t_mlx *mlx)
 	destroy_mlx(mlx);
 	exit(1);
 }
+
+int	is_surrounded_by_walls(t_game *game)
+{
+	int		y;
+	int		x;
+
+	y = 0;
+	helper_surrounded(game, x, y);
+	while (y < game->map_height)
+	{
+		x = 0;
+		while (x < (int)strlen(game->temp_map[y]))
+		{
+			if (game->temp_map[y][x] == '0')
+			{
+				flood_fill2(game->temp_map, x, y, game);
+				break ;
+			}
+			x++;
+		}
+		if (game->touches_border)
+			break ;
+		y++;
+	}
+	y = 0;
+	free_map(game->temp_map);
+	return (game->touches_border);
+}

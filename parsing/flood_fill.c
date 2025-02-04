@@ -39,7 +39,7 @@ void	check_map_copy(t_game *game, char **map_copy)
 			if (map_copy[y][x] == '0')
 			{
 				free_map_copy(map_copy, game->map_height);
-				printf("%s", "Error\nInvalid map\n");
+				printf("%s", "Error\nInaccessible areas\n");
 				clean_exit(game, game->mlx);
 			}
 			x++;

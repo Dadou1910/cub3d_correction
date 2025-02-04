@@ -70,6 +70,8 @@ void	init_game(t_game *game, t_mlx *mlx)
 	game->drawend = 0;
 	game->drawstart = 0;
 	game->buffer = NULL;
+	game->touches_border = 0;
+	game->temp_map = NULL;
 }
 
 void	init_mlx(t_game *game, t_mlx *mlx)
@@ -79,13 +81,21 @@ void	init_mlx(t_game *game, t_mlx *mlx)
 	if (!mlx->mlx)
 	{
 		free(game);
-		// mlx_destroy_display(mlx);
 		free(mlx);
 		exit(1);
 	}
 	mlx->mlx_win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "Cub3D");
-	
+	if (!mlx->mlx_win)
+	{
+		free(game);
+		free(mlx);
+		exit(1);
+	}
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	if (!mlx->img)
+	{
+		cleanup_and_exit(game, mlx, "Failed to create new image");
+	}
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
 			&mlx->line_length, &mlx->endian);
 }

@@ -59,7 +59,6 @@ int	render_loop(void *param)
 	game = (t_game *)param;
 	update_player(game);
 	render_frame(game, &game->ray, game->map, game->mlx);
-	render_minimap(game, game->mlx);
 	game->init = 1;
 	return (0);
 }

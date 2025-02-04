@@ -126,6 +126,8 @@ typedef struct s_game
 	int			drawstart;
 	int			drawend;
 	int			map_started;
+	int			touches_border;
+	char		**temp_map;
 	t_keys		keys;
 	t_mlx		*mlx;
 	t_ray		ray;
@@ -154,7 +156,6 @@ void		render_frame(t_game *game, t_ray *ray, char **map, t_mlx *mlx);
 void		render_textured_column(t_game *game, int x, int side, double wallx);
 void		my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void		clear_screen(t_mlx *mlx);
-void		render_minimap(t_game *game, t_mlx *mlx);
 void		calculate_map_dimensions(t_game *game);
 void		draw_tile(t_mlx *mlx, int x, int y, int color);
 void		init_mlx_null(t_mlx *mlx);
@@ -171,8 +172,8 @@ void		validate_config(t_mlx *mlx);
 char		*trim_whitespace(char *str);
 int			check_text(char *line);
 void		free_map(char **map);
-int			check_top_bottom(char **map, int height);
-int			check_row_sides(char **map, int height);
+int			is_surrounded_by_walls(t_game *game);
+int			is_valid_color(int color, const char *type);
 int			is_valid_cub_file(const char *filename);
 void		check_malloc(t_game *game, t_mlx *mlx);
 void		load_texture(t_mlx *mlx, t_texture *texture, t_game *game,
@@ -180,13 +181,15 @@ void		load_texture(t_mlx *mlx, t_texture *texture, t_game *game,
 int			check_duplicate_or_missing(t_game *game, t_mlx *mlx);
 void		parse_file(const char *filename, t_game *game, t_mlx *mlx);
 void		parse_config(char *line, char *li, t_game *game);
+void		helper_surrounded(t_game *game, int x, int y);
 void		validate_map(t_game *game);
-void		help_dimension(t_game *game);
+void		help_dimension(t_game *game, char c);
 void		clean_exit(t_game *game, t_mlx *mlx);
 void		cleanup_and_exit(t_game *game, t_mlx *mlx, const char *error_msg);
 void		validate_config_map(char *line, t_game *game, t_mlx *mlx);
 void		validate_accessible_map(t_game *game);
 void		set_player_orientation(t_game *game, char orientation);
 void		flood_fill(char **map, int x, int y, t_game *game);
+void		flood_fill2(char **map, int x, int y, t_game *game);
 t_texture	*select_texture(t_game *game, t_mlx *mlx, int side);
 #endif
