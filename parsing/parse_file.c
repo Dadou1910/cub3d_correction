@@ -6,7 +6,7 @@
 /*   By: dadou <dadou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2025/02/02 20:18:57 by dadou            ###   ########.fr       */
+/*   Updated: 2025/02/03 23:03:18 by dadou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_map_char(char *line, t_game *game)
 			&& line[x] != 'W')
 		{
 			free(line);
-			printf("%s", "Error\nIvalid character in map\n");
+			printf("%s", "Error\nInvalid character in map\n");
 			clean_exit(game, game->mlx);
 		}
 		x++;
@@ -38,7 +38,7 @@ int	map_not_started(char *line, t_game *game)
 	test_line = trim_whitespace(line);
 	if (line[0] == '\0' || line[0] == '\n')
 		return (0);
-	if (!check_text(test_line))
+	if (!check_text(test_line) && !game->map_started)
 		parse_config(test_line, line, game);
 	else if (test_line[0] == '1' || test_line[0] == '0')
 		return (1);
@@ -74,7 +74,8 @@ char	*map_has_started(t_game *game, char *line)
 	if (game->map_started && (ft_strchr(line, 'F') != NULL || ft_strchr(line, 'C')!= NULL))
 	{
 		free(line);
-		cleanup_and_exit(game, game->mlx, "Error\nFloor/Ceiling colors found inside the map\n");
+		printf("%s", "Error\nInvalid character in map\n");
+		clean_exit(game, game->mlx);
 	}
 	len = ft_strlen(line);
 	if (len > 0 && line[len - 1] == '\n')
@@ -88,7 +89,6 @@ void	helper_parse_file(t_game *game, char *line, int *y)
 {
 	int	map_started;
 
-	game->map_started = 0;
 	if (!game->map_started)
 		game->map_started = map_not_started(line, game);
 	if (game->map_started)
@@ -102,20 +102,6 @@ void	helper_parse_file(t_game *game, char *line, int *y)
 		(*y)++;
 		game->map[*y] = NULL;
 	}
-}
-
-int is_valid_cub_file(const char *filename)
-{
-    int len;
-
-    if (!filename)
-        return (0);
-    len = ft_strlen(filename);
-    if (len < 4)
-        return (0);
-    if (ft_strcmp((char *)(filename + len - 4), ".cub") == 0)
-        return (1);
-    return (0);
 }
 
 void	parse_file(const char *filename, t_game *game, t_mlx *mlx)

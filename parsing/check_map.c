@@ -6,7 +6,7 @@
 /*   By: dadou <dadou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2025/01/31 14:54:59 by dadou            ###   ########.fr       */
+/*   Updated: 2025/02/03 23:06:25 by dadou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,17 @@ int	help_walls_count(t_game *game, int x, int y, int *count)
 	return (1);
 }
 
+
+
 int	is_surrounded_by_walls(t_game *game)
 {
-    int y = 0;
-    int x = 0;
-
-    while (x < game->map_width)
-    {
-        if (game->map[0][x] != '1' || game->map[game->map_height - 1][x] != '1')
-            return(1);
-        x++;
-    }
-    while (y < game->map_height)
-    {
-        if (game->map[y][0] != '1' || game->map[y][game->map_width - 1] != '1')
-            return(1);
-        y++;
-	}
+	if (check_row_sides(game->map, game->map_height) ||
+		check_top_bottom(game->map, game->map_height))
+		return (1);
 	return (0);
 }
+
+
 
 void	helper_val_map(t_game *game, int *player_count, int x, int y)
 {

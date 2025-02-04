@@ -6,7 +6,7 @@
 /*   By: dadou <dadou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/29 11:38:35 by dadou            ###   ########.fr       */
+/*   Updated: 2025/02/03 16:05:23 by dadou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	validate_comma(t_game *game, char *line, int *i)
 	(*i)++;
 }
 
-int	parse_color(t_game *game, char *line)
+int	parse_color(t_game *game, char *line, char *li)
 {
 	int	r;
 	int	g;
@@ -78,8 +78,8 @@ int	parse_color(t_game *game, char *line)
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0
 		|| b > 255 || line[i] != '\0')
 	{
-		printf("Error\nInvalid color value -> %s\n", line);
-		clean_exit(game, game->mlx);
+		free(li);
+		cleanup_and_exit(game, game->mlx, "Invalid colour value");
 	}
 	return ((r << 16) | (g << 8) | b);
 }

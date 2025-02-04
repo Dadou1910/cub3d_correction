@@ -6,7 +6,7 @@
 /*   By: dadou <dadou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2025/02/02 15:18:11 by dadou            ###   ########.fr       */
+/*   Updated: 2025/02/03 22:58:43 by dadou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ void	cleanup_and_exit(t_game *game, t_mlx *mlx, const char *error_msg)
 {
 	if (error_msg)
 		printf("Error\n%s\n", error_msg);
-	if (game && game->map)
-		free(game->map);
 	if (game->buffer)
 		free(game->buffer);
+	if (game && game->map)
+		free(game->map);
 	if (game)
 		free(game);
-	destroy_mlx(mlx);
+	if (mlx)
+		destroy_mlx(mlx);
 	exit(1);
 }
 

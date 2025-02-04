@@ -17,8 +17,6 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
 # include <fcntl.h>
 
 # define WIDTH 1280
@@ -141,7 +139,7 @@ typedef struct s_game
 int			close_window(void *param);
 int			key_press(int keycode, t_game *game);
 void		init_game(t_game *game, t_mlx *mlx);
-void		init_mlx(t_mlx *mlx);
+void		init_mlx(t_game *game, t_mlx *mlx);
 void		init_ray(t_ray ray);
 void		init_temp(t_temp temp);
 void		init_minmap(t_game *game);
@@ -166,13 +164,16 @@ char		*get_next_line(int fd, t_game *game);
 //					  		 PARSING   							 //
 //===================================================================//
 
-int			parse_color(t_game *game, char *line);
+int			parse_color(t_game *game, char *line, char *li);
 int			help_walls(t_game *game, int x, int y);
 int			is_valid_map_char(char c);
 void		validate_config(t_mlx *mlx);
 char		*trim_whitespace(char *str);
 int			check_text(char *line);
 void		free_map(char **map);
+int			check_top_bottom(char **map, int height);
+int			check_row_sides(char **map, int height);
+int			is_valid_cub_file(const char *filename);
 void		check_malloc(t_game *game, t_mlx *mlx);
 void		load_texture(t_mlx *mlx, t_texture *texture, t_game *game,
 				char *path);

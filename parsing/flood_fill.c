@@ -6,7 +6,7 @@
 /*   By: dadou <dadou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/29 12:50:56 by dadou            ###   ########.fr       */
+/*   Updated: 2025/02/03 15:57:59 by dadou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	check_map_copy(t_game *game, char **map_copy)
 			if (map_copy[y][x] == '0')
 			{
 				free_map_copy(map_copy, game->map_height);
-				cleanup_and_exit(game, game->mlx, "Inaccessible areas");
+				printf("%s", "Error\nInvalid map\n");
+				clean_exit(game, game->mlx);
 			}
 			x++;
 		}

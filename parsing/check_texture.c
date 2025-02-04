@@ -6,7 +6,7 @@
 /*   By: dadou <dadou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2025/02/02 18:09:25 by dadou            ###   ########.fr       */
+/*   Updated: 2025/02/03 16:04:31 by dadou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,26 @@ void	validate_config_map(char *line, t_game *game, t_mlx *mlx)
 		game->count[5]++;
 }
 
-int is_valid_xpm_file(char *filename)
+int	is_valid_xpm_file(char *filename)
 {
-    int len;
-    int fd;
+	int		len;
+	int		fd;
 
-    if (!filename)
-        return (0);
-    len = ft_strlen(filename);
-    if (len < 4)
-        return (0);
-    if (ft_strcmp(filename + len - 4, ".xpm") != 0)
-        return (0);
-    fd = open(filename, O_RDONLY);
-    if (fd == -1)
-        return (0);
-    close(fd);
-    return (1);
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 5)
+		return (0);
+	if (ft_strncmp(filename + len - 4, ".xpm", 4) != 0)
+		return (0);
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	close(fd);
+	return (1);
 }
+
+
 
 
 void	parse_config(char *line, char *li, t_game *game)
@@ -84,14 +86,13 @@ void	parse_config(char *line, char *li, t_game *game)
 		&& !game->mlx->east_texture.img)
 		load_texture(game->mlx, &game->mlx->east_texture, game, trimmed + 3);
 	else if (!ft_strncmp(trimmed, "F ", 2) && !game->mlx->floor_color)
-		game->mlx->floor_color = parse_color(game, trimmed + 2);
+		game->mlx->floor_color = parse_color(game, trimmed + 2, li);
 	else if (!ft_strncmp(trimmed, "C ", 2) && !game->mlx->ceiling_color)
-		game->mlx->ceiling_color = parse_color(game, trimmed + 2);
+		game->mlx->ceiling_color = parse_color(game, trimmed + 2, li);
 	else
 	{
 		free(li);
-		printf("%s", "Error\nInvalid map configuration\n");
-		clean_exit(game, game->mlx);
+		cleanup_and_exit(game, game->mlx, "Invalid map configuration");
 	}
 }
 

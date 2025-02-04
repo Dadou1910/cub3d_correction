@@ -72,11 +72,19 @@ void	init_game(t_game *game, t_mlx *mlx)
 	game->buffer = NULL;
 }
 
-void	init_mlx(t_mlx *mlx)
+void	init_mlx(t_game *game, t_mlx *mlx)
 {
 	init_mlx_null(mlx);
 	mlx->mlx = mlx_init();
+	if (!mlx->mlx)
+	{
+		free(game);
+		// mlx_destroy_display(mlx);
+		free(mlx);
+		exit(1);
+	}
 	mlx->mlx_win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "Cub3D");
+	
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
 			&mlx->line_length, &mlx->endian);

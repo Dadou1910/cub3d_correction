@@ -6,7 +6,7 @@
 /*   By: dadou <dadou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2025/02/02 14:22:37 by dadou            ###   ########.fr       */
+/*   Updated: 2025/02/03 23:00:28 by dadou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	main(int argc, char **argv)
 	}
 	game = malloc(sizeof(t_game));
 	if (!game)
-		check_malloc(game, mlx);
+		exit(1);
 	mlx = malloc(sizeof(t_mlx));
 	if (!mlx)
 		check_malloc(game, game->mlx);
-	init_mlx(mlx);
+	init_mlx(game, mlx);
 	init_game(game, mlx);
 	parse_file(argv[1], game, mlx);
 	calculate_map_dimensions(game);
