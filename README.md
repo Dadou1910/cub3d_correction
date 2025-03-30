@@ -63,7 +63,7 @@ Une carte .cub contient :
 ---
 
 ## 📁 Structure typique
-
+``` bash
 cub3d_correction/
 ├── exec/              # Cartes .cub, fichiers source
 ├── Libft/             # Fonctions de base
@@ -72,6 +72,7 @@ cub3d_correction/
 ├── parsing/           
 ├── Makefile
 └── README.md
+```
 
 👨‍💻 Auteurs
 
